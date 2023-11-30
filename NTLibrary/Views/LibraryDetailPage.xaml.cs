@@ -22,11 +22,7 @@ public sealed partial class LibraryDetailPage : Page
         UserList.ItemsSource = ViewModel.GetUsers().Select(x => x.Name).ToList();
     }
 
-    protected override void OnNavigatedTo(NavigationEventArgs e)
-    {
-        base.OnNavigatedTo(e);
-        this.RegisterElementForConnectedAnimation("animationKeyContentGrid", itemHero);
-    }
+    protected override void OnNavigatedTo(NavigationEventArgs e) => base.OnNavigatedTo(e);
 
     protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
     {
@@ -44,16 +40,23 @@ public sealed partial class LibraryDetailPage : Page
 
     private void Return(object sender, RoutedEventArgs e)
     {
-        var userName = UserList.SelectedItem.ToString();
-        if (userName != null)
+        if (UserList.SelectedItem.ToString() == null)
         {
-            var user = ViewModel.GetUsers().FirstOrDefault(x => x.Name == userName);
-            if (ViewModel.Book != null && user != null)
-            {
-                var bookId = ViewModel.Book.Id;
-                var userId = user.Id;
-                ViewModel.ReturnBook(bookId, userId);
-            }
+            return;
+        }
+
+        var userName = UserList.SelectedItem.ToString();
+        if (userName == null)
+        {
+            return;
+        }
+
+        var user = ViewModel.GetUsers().FirstOrDefault(x => x.Name == userName);
+        if (ViewModel.Book != null && user != null)
+        {
+            var bookId = ViewModel.Book.Id;
+            var userId = user.Id;
+            ViewModel.ReturnBook(bookId, userId);
         }
     }
 
@@ -68,4 +71,10 @@ public sealed partial class LibraryDetailPage : Page
             ViewModel.BorrowBook(bookId, userId);
         }
     }
+
+    private void OpenUserList(object sender, RoutedEventArgs e) => UserListDialog.IsOpen = true;
+
+
+    private void SelectUser(TeachingTip sender, object args) =>
+        OpenUserListButton.Content = UserList.SelectedItem.ToString();
 }

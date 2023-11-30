@@ -2,19 +2,84 @@
     x:Class="NTLibrary.Views.LibraryDetailPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
-    xmlns:models="using:NTLibrary.Core.Models"
     mc:Ignorable="d">
 
     <Grid x:Name="ContentArea">
+        <ScrollViewer IsTabStop="True">
+            <StackPanel x:Name="contentPanel">
+                <RelativePanel>
+                    <Grid x:Name="itemHero" />
+                    <TextBlock
+                        x:Name="title"
+                        Margin="{StaticResource XXSmallTopMargin}"
+                        Style="{ThemeResource TitleTextBlockStyle}"
+                        Text="{x:Bind ViewModel.Book.Title, Mode=OneWay}" />
+                    <StackPanel
+                        x:Name="buttonPanel"
+                        Margin="{StaticResource SmallTopMargin}"
+                        Orientation="Horizontal"
+                        RelativePanel.AlignHorizontalCenterWithPanel="True">
+                        <Button
+                            x:Name="BorrowButton"
+                            Margin="0,0,10,0"
+                            Click="Borrow"
+                            Content="Borrow" />
+                        <Button
+                            x:Name="ReturnButton"
+                            Margin="0,0,10,0"
+                            Click="Return"
+                            Content="Return" />
+                        <Button
+                            x:Name="OpenUserListButton"
+                            Click="OpenUserList"
+                            Content="Users" />
+                        <TeachingTip
+                            x:Name="UserListDialog"
+                            Title="Select a user"
+                            ActionButtonClick="SelectUser"
+                            ActionButtonContent="Select"
+                            CloseButtonContent="Done"
+                            IsLightDismissEnabled="True"
+                            PreferredPlacement="Auto">
+                            <ListView x:Name="UserList" Margin="0,10,0,0" />
+                        </TeachingTip>
+                    </StackPanel>
+                    <StackPanel x:Name="propertiesGroup1" RelativePanel.Below="title">
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Author" />
+                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Book.Author}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel x:Name="propertiesGroup2" RelativePanel.Below="propertiesGroup1">
+                        <StackPanel x:Name="OwnerID" Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Owner" />
+                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Book.Owner}" />
+                        </StackPanel>
+
+                        <StackPanel x:Name="bookID" Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Book ID" />
+                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Book.Id}" />
+                        </StackPanel>
+                    </StackPanel>
+                </RelativePanel>
+                <TextBlock
+                    Margin="{StaticResource SmallTopMargin}"
+                    Style="{ThemeResource SubtitleTextBlockStyle}"
+                    Text="Description" />
+                <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Book.Description}" />
+
+            </StackPanel>
+        </ScrollViewer>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <!--641 is the default CompactModeThresholdWidth in NavigationView -->
+                        <!--  641 is the default CompactModeThresholdWidth in NavigationView  -->
                         <AdaptiveTrigger MinWindowWidth="641" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
@@ -27,87 +92,5 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-
-        <ScrollViewer
-            IsTabStop="True">
-            <StackPanel
-                x:Name="contentPanel">
-                <RelativePanel>
-
-                    <Button x:Name="BorrowButton"
-                            Content="Borrow" 
-                            Click="Borrow"
-                            RelativePanel.RightOf="propertiesGroup2"
-                            RelativePanel.AlignTopWithPanel="True" />
-
-                    <!-- Return Button -->
-                    <Button x:Name="ReturnButton"
-                            Content="Return" 
-                            Click="Return"
-                            RelativePanel.Below="BorrowButton"
-                            RelativePanel.RightOf="propertiesGroup2" />
-
-                    <!-- User List -->
-                    <ListBox x:Name="UserList"
-                             RelativePanel.Below="ReturnButton"
-                             RelativePanel.RightOf="propertiesGroup2" />
-                    <Grid
-                        x:Name="itemHero"
-                        Width="200"
-                        Height="200"
-                        Margin="{StaticResource SmallRightMargin}"
-                        Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        RelativePanel.AlignTopWithPanel="True"
-                        RelativePanel.AlignLeftWithPanel="True">
-                    </Grid>
-                    <TextBlock
-                        x:Name="title"
-                        Margin="{StaticResource XXSmallTopMargin}"
-                        RelativePanel.AlignTopWithPanel="True"
-                        RelativePanel.RightOf="itemHero"
-                        Style="{ThemeResource TitleTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Book.Title, Mode=OneWay}" />
-
-                    <StackPanel x:Name="propertiesGroup1" RelativePanel.Below="itemHero">
-                        <StackPanel Margin="{StaticResource SmallTopMargin}">
-                            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Author" />
-                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Book.Author}" />
-                        </StackPanel>
-                    </StackPanel>
-
-                    <StackPanel x:Name="propertiesGroup2" RelativePanel.Below="propertiesGroup1">
-                        <StackPanel x:Name="shipToGroup" Margin="{StaticResource SmallTopMargin}">
-                            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Owner" />
-                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Book.Owner}" />
-                        </StackPanel>
-
-                        <StackPanel x:Name="orderTotalGroup" Margin="{StaticResource SmallTopMargin}">
-                            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Book ID" />
-                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Book.Id}" />
-                        </StackPanel>
-                    </StackPanel>
-
-                </RelativePanel>
-
-                <TextBlock
-                    Margin="{StaticResource SmallTopMargin}"
-                    Style="{ThemeResource SubtitleTextBlockStyle}"
-                    Text="Note 1" />
-                <TextBlock
-                    Style="{ThemeResource BodyTextBlockStyle}"
-                    Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
-
-                <TextBlock
-                    Margin="{StaticResource SmallTopMargin}"
-                    Style="{ThemeResource SubtitleTextBlockStyle}"
-                    Text="Note 2" />
-                <TextBlock
-                    Margin="{StaticResource MediumBottomMargin}"
-                    Style="{ThemeResource BodyTextBlockStyle}"
-                    Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
-            </StackPanel>
-        </ScrollViewer>
     </Grid>
 </Page>

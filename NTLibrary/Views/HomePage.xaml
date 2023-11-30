@@ -16,19 +16,26 @@
                     <ColumnDefinition Width="1*" />
                     <!--  50% width  -->
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <!--  50% height  -->
+                    <RowDefinition Height="1*" />
+                    <!--  50% height  -->
+                </Grid.RowDefinitions>
                 <Button
                     Grid.Column="0"
                     Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
                     Padding="10"
                     HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Stretch">
+                    HorizontalContentAlignment="Stretch"
+                    Click="OpenAllUsersDialog">
                     <Border HorizontalAlignment="Stretch" VerticalAlignment="Top">
                         <controls:DockPanel LastChildFill="True">
                             <StackPanel controls:DockPanel.Dock="Left" Orientation="Horizontal">
                                 <FontIcon
                                     Margin="5,0,5,0"
                                     FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                    Glyph="&#xe790;" />
+                                    Glyph="&#xE8B8;" />
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock
                                         Margin="10,0,0,0"
@@ -51,18 +58,20 @@
                     </Border>
                 </Button>
                 <Button
+                    Grid.Row="0"
                     Grid.Column="1"
                     Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
                     Padding="10"
                     HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Stretch">
+                    HorizontalContentAlignment="Stretch"
+                    Click="OpenAllBooks">
                     <Border HorizontalAlignment="Stretch" VerticalAlignment="Top">
                         <controls:DockPanel LastChildFill="True">
                             <StackPanel controls:DockPanel.Dock="Left" Orientation="Horizontal">
                                 <FontIcon
                                     Margin="5,0,5,0"
                                     FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                    Glyph="&#xe790;" />
+                                    Glyph="&#xE8A5;" />
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock
                                         Margin="10,0,0,0"
@@ -84,13 +93,79 @@
                         </controls:DockPanel>
                     </Border>
                 </Button>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
+                    Padding="10"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    Click="OpenAllBorrowedUsers">
+                    <Border HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <controls:DockPanel LastChildFill="True">
+                            <StackPanel controls:DockPanel.Dock="Left" Orientation="Horizontal">
+                                <FontIcon
+                                    Margin="5,0,5,0"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    Glyph="&#xE8CF;" />
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="Borrowing Users" />
+                                    <TextBlock
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                        Text="Total users who are borrowing" />
+                                </StackPanel>
+                            </StackPanel>
+                            <TextBlock
+                                x:Name="BorrowedUserCount"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Text="" />
+                        </controls:DockPanel>
+                    </Border>
+                </Button>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
+                    Padding="10"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    Click="OpenAllBorrowedBooks">
+                    <Border HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <controls:DockPanel LastChildFill="True">
+                            <StackPanel controls:DockPanel.Dock="Left" Orientation="Horizontal">
+                                <FontIcon
+                                    Margin="5,0,5,0"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    Glyph="&#xE8A6;" />
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="Borrowed Books" />
+                                    <TextBlock
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                        Text="Total Borrowed Books" />
+                                </StackPanel>
+                            </StackPanel>
+                            <TextBlock
+                                x:Name="BorrowedBookCount"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Text="" />
+                        </controls:DockPanel>
+                    </Border>
+                </Button>
             </Grid>
-
-
-            <!--  User Count TextBlock  -->
-
-
-            <!--  Book Count TextBlock  -->
 
             <Button
                 Margin="{StaticResource XSmallTopMargin}"
@@ -103,7 +178,7 @@
                             <FontIcon
                                 Margin="5,0,5,0"
                                 FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                Glyph="&#xe790;" />
+                                Glyph="&#xE748;" />
                             <StackPanel Orientation="Vertical">
                                 <TextBlock
                                     Margin="10,0,0,0"
@@ -138,7 +213,7 @@
                             <FontIcon
                                 Margin="5,0,5,0"
                                 FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                Glyph="&#xe790;" />
+                                Glyph="&#xE74D;" />
                             <StackPanel Orientation="Vertical">
                                 <TextBlock
                                     Margin="10,0,0,0"
@@ -162,6 +237,42 @@
                     </controls:DockPanel>
                 </Border>
             </Button>
+            <Button
+                Margin="{StaticResource XSmallTopMargin}"
+                Padding="10"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch">
+                <Border HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                    <controls:DockPanel LastChildFill="True">
+                        <StackPanel controls:DockPanel.Dock="Left" Orientation="Horizontal">
+                            <FontIcon
+                                Margin="5,0,5,0"
+                                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                Glyph="&#xE753;" />
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="Update User" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                    Text="Update an existing user" />
+                            </StackPanel>
+                        </StackPanel>
+                        <Button
+                            Width="125"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Click="OpenUpdateUsernameDialog"
+                            Content="Update User" />
+                    </controls:DockPanel>
+                </Border>
+            </Button>
+
             <TeachingTip
                 x:Name="AddUserDialog"
                 Title="Add a new user"
@@ -175,15 +286,17 @@
 
             <TeachingTip
                 x:Name="UpdateUsernameDialog"
-                Title="Add a new user"
-                ActionButtonClick="AddUserButtonClick"
-                ActionButtonContent="Add user"
+                Title="Change username"
+                ActionButtonClick="UpdateUserName"
+                ActionButtonContent="Change Username"
                 CloseButtonContent="Done"
                 IsLightDismissEnabled="True"
                 PreferredPlacement="Auto">
-                <ListView x:Name="UpdateUsernameList" Margin="0,10,0,0">
-                    <TextBox x:Name="UpdateUserName" Margin="0,10,0,0" />
-                </ListView>
+                <StackPanel>
+                    <ListView x:Name="UpdateUsernameList" Margin="0,10,0,0" />
+                    <TextBox x:Name="UpdateUserNameTextBox" Margin="0,10,0,0" />
+                </StackPanel>
+
             </TeachingTip>
 
             <TeachingTip
@@ -195,6 +308,42 @@
                 IsLightDismissEnabled="True"
                 PreferredPlacement="Auto">
                 <ListView x:Name="UserList" Margin="0,10,0,0" />
+            </TeachingTip>
+
+            <TeachingTip
+                x:Name="BorrowedBooksDialog"
+                Title="View all borrowed books"
+                CloseButtonContent="Done"
+                IsLightDismissEnabled="True"
+                PreferredPlacement="Auto">
+                <ListView x:Name="BorrowedBooksList" Margin="0,10,0,0" />
+            </TeachingTip>
+
+            <TeachingTip
+                x:Name="AllUsersDialog"
+                Title="View all users"
+                CloseButtonContent="Done"
+                IsLightDismissEnabled="True"
+                PreferredPlacement="Auto">
+                <ListView x:Name="AllUserList" Margin="0,10,0,0" />
+            </TeachingTip>
+
+            <TeachingTip
+                x:Name="AllBooksDialog"
+                Title="View all books"
+                CloseButtonContent="Done"
+                IsLightDismissEnabled="True"
+                PreferredPlacement="Auto">
+                <ListView x:Name="AllBooksList" Margin="0,10,0,0" />
+            </TeachingTip>
+
+            <TeachingTip
+                x:Name="AllBorrowedUsersDialog"
+                Title="View all users who are borrowing"
+                CloseButtonContent="Done"
+                IsLightDismissEnabled="True"
+                PreferredPlacement="Auto">
+                <ListView x:Name="AllBorrowedUsersList" Margin="0,10,0,0" />
             </TeachingTip>
         </StackPanel>
     </Grid>

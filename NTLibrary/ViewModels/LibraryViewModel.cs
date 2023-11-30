@@ -15,13 +15,15 @@ public partial class LibraryViewModel : ObservableRecipient, INavigationAware
 {
     private readonly INavigationService _navigationService;
     private readonly IBookService _bookService;
+    private readonly IUserService _userService;
 
     public ObservableCollection<Book> Source { get; } = new ObservableCollection<Book>();
 
-    public LibraryViewModel(INavigationService navigationService, IBookService bookService)
+    public LibraryViewModel(INavigationService navigationService, IBookService bookService, IUserService userService)
     {
         _navigationService = navigationService;
         _bookService = bookService;
+        _userService = userService;
     }
 
     public async void OnNavigatedTo(object parameter)

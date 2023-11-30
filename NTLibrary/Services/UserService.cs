@@ -89,6 +89,7 @@ public class UserService : IUserService
             Console.WriteLine("User does not have this book.");
         }
 
+       
         user.Books.Remove(book);
         SaveChanges();
     }

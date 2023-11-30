@@ -40,8 +40,7 @@ public partial class HomeViewModel : ObservableRecipient
         var user = _userService.GetUsers().FirstOrDefault(x => x.Name == oldName);
         if (user != null)
         {
-            user.Name = newName;
-            _userService.UpdateUser(user);
+            _userService.UpdateName(user, newName);
         }
     }
 

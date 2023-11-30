@@ -15,24 +15,38 @@ public partial class InventoryViewModel : ObservableRecipient, INavigationAware
 {
     private readonly INavigationService _navigationService;
     private readonly IBookService _bookService;
+    private readonly IUserService _userService;
 
     public ObservableCollection<Book> Source { get; } = new ObservableCollection<Book>();
 
-    public InventoryViewModel(INavigationService navigationService, IBookService bookService)
+    public InventoryViewModel(INavigationService navigationService, IBookService bookService, IUserService userService)
     {
         _navigationService = navigationService;
         _bookService = bookService;
+        _userService = userService;
     }
 
     public async void OnNavigatedTo(object parameter)
+    {
+    }
+
+    public void UpdateInventory(User user)
     {
         Source.Clear();
 
         var data = _bookService.GetBooks();
         foreach (var item in data)
         {
-            Source.Add(item);
+            if (item.Owner == user.Id)
+            {
+                Source.Add(item);
+            }
         }
+    }
+
+    public List<User> GetUsers()
+    {
+        return _userService.GetUsers();
     }
 
     public void OnNavigatedFrom()
