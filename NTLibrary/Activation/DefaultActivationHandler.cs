@@ -16,7 +16,6 @@ public class DefaultActivationHandler : ActivationHandler<LaunchActivatedEventAr
 
     protected override bool CanHandleInternal(LaunchActivatedEventArgs args)
     {
-        // None of the ActivationHandlers has handled the activation.
         return _navigationService.Frame?.Content == null;
     }
 

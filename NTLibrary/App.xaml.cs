@@ -14,14 +14,8 @@ using NTLibrary.Views;
 
 namespace NTLibrary;
 
-// To learn more about WinUI 3, see https://docs.microsoft.com/windows/apps/winui/winui3/.
 public partial class App : Application
 {
-    // The .NET Generic Host provides dependency injection, configuration, logging, and other services.
-    // https://docs.microsoft.com/dotnet/core/extensions/generic-host
-    // https://docs.microsoft.com/dotnet/core/extensions/dependency-injection
-    // https://docs.microsoft.com/dotnet/core/extensions/configuration
-    // https://docs.microsoft.com/dotnet/core/extensions/logging
     public IHost Host
     {
         get;
@@ -102,8 +96,7 @@ public partial class App : Application
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
     {
-        // TODO: Log and handle exceptions as appropriate.
-        // https://docs.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.application.unhandledexception.
+
     }
 
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
